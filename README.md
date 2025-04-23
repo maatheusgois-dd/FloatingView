@@ -2,6 +2,11 @@
 
 A SwiftUI-based floating view implementation that allows for draggable, interactive floating elements in iOS applications.
 
+
+https://github.com/user-attachments/assets/fdc2a1e9-1586-45dd-b92f-5787035109dd
+
+
+
 ## Features
 
 - Draggable floating ball that snaps to screen edges
