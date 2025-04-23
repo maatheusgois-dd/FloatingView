@@ -7,14 +7,22 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
+    @EnvironmentObject var windowManager: FloatingWindowManager
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 16) {
+            Text("Main App Window")
+            
+            Button("Open Overlay") {
+                windowManager.open()
+            }
+            
+            Button("Close Overlay", role: .cancel) {
+                windowManager.close()
+            }
         }
         .padding()
     }
