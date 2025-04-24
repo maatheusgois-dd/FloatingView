@@ -93,7 +93,3 @@ viewModel.padding = 20   // Adjust edge padding
 1. Clone the repository
 2. Open the project in Xcode
 3. Build and run
-
-## License
-
-Copyright © 2025 DoorDash. All rights reserved. 
