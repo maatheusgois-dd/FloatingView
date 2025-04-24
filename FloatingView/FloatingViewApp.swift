@@ -10,12 +10,9 @@ import SwiftUI
 
 @main
 struct FloatingViewApp: App {
-    @StateObject private var windowManager = FloatingWindowManager()
-
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(windowManager)
         }
     }
 }

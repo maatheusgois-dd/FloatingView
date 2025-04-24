@@ -6,8 +6,8 @@
 //  Copyright © 2025 DoorDash. All rights reserved.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
 enum BottomFloatState {
     case normal
@@ -32,8 +32,8 @@ final class FloatViewModel: ObservableObject {
     func snapX(_ x: CGFloat, screenWidth: CGFloat) -> CGFloat {
         let centerX = screenWidth / 2
         return x < centerX
-        ? padding + ballSize / 2
-        : screenWidth - padding - ballSize / 2
+            ? padding + ballSize / 2
+            : screenWidth - padding - ballSize / 2
     }
     
     func updateBottomState(with point: CGPoint, screenSize: CGSize) {
@@ -67,4 +67,4 @@ final class FloatViewModel: ObservableObject {
         let bottom = screenHeight - padding - ballSize / 2
         return min(max(y, top), bottom)
     }
-} 
+}

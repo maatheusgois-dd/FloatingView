@@ -8,36 +8,53 @@
 
 import SwiftUI
 
-struct FloatingView: View {
+struct FloatingView<Content: View>: View {
     @ObservedObject var viewModel: FloatViewModel
-    let screenSize = UIScreen.main.bounds
-
     @State private var reveal = false
+    let content: () -> Content
 
     var body: some View {
-        ZStack {
-            Color.white
-                .ignoresSafeArea()
-                .overlay(
-                    VStack {
-                        Spacer()
-                        Button("Close") {
-                            reveal = false
+        GeometryReader { geo in
+            let screenWidth = geo.size.width
+            let screenHeight = geo.size.height
+            
+            let diagonal = sqrt(pow(screenWidth, 2) + pow(screenHeight, 2))
+            
+            let coverageMultiplier: CGFloat = 2
+            let finalDiameter = diagonal * coverageMultiplier
+            
+            let offsetX = viewModel.currentBallPosition.x - screenWidth / 2
+            let offsetY = viewModel.currentBallPosition.y - screenHeight / 2
 
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                                viewModel.isPresenting = false
+            NavigationStack {
+                content()
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                withAnimation {
+                                    reveal = false
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                                    viewModel.isPresenting = false
+                                }
+                            } label: {
+                                Image(systemName: "xmark")
                             }
                         }
-                        .padding(.bottom, 40)
                     }
-                )
-                .clipShape(
-                    ExpandingCircle(center: viewModel.currentBallPosition, scale: reveal ? 1 : 0.01)
-                )
-                .animation(.spring(response: 0.8, dampingFraction: 1), value: reveal)
-                .onAppear {
-                    reveal = true
-                }
+            }
+            .frame(width: screenWidth, height: screenHeight)
+            .mask(
+                Circle()
+                    .frame(width: finalDiameter, height: finalDiameter)
+                    .scaleEffect(reveal ? 1 : 0.01)
+                    .offset(x: offsetX, y: offsetY)
+            )
+            .animation(.spring(response: 0.8, dampingFraction: 1), value: reveal)
+            .onAppear {
+                reveal = true
+            }
         }
+        .ignoresSafeArea()
     }
-} 
+}

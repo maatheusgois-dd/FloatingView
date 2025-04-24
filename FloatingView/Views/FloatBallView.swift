@@ -21,7 +21,9 @@ struct FloatBallView: View {
     var body: some View {
         GeometryReader { geometry in
             Circle()
-                .fill(Color.blue)
+                .fill(Color.brown)
+                .shadow(color: Color.white.opacity(0.1), radius: 5, x: 0, y: 0)
+                .frame(width: viewModel.ballSize, height: viewModel.ballSize)
                 .frame(width: viewModel.ballSize, height: viewModel.ballSize)
                 .position(
                     x: currentPosition.x + dragOffset.width,
@@ -73,4 +75,4 @@ struct FloatBallView: View {
                 .accessibilityIdentifier("floatBall")
         }
     }
-} 
+}

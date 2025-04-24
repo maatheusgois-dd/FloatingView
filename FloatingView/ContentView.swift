@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 struct ContentView: View {
-    @EnvironmentObject var windowManager: FloatingWindowManager
+    @StateObject private var windowManager = FloatingWindowManagerImpl(content: InternalContentView())
     
     var body: some View {
         VStack(spacing: 16) {
@@ -30,4 +30,17 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+struct InternalContentView: View {
+    var body: some View {
+        GeometryReader { geometry in
+            VStack {
+                Text("Hello, World!")
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+            .background(Color.brown)
+        }
+        .ignoresSafeArea()
+    }
 }

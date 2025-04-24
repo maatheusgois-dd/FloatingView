@@ -8,8 +8,9 @@
 
 import SwiftUI
 
-struct FloatingOverlay: View {
+struct FloatingOverlay<Content: View>: View {
     @ObservedObject var viewModel: FloatViewModel
+    let content: () -> Content
     
     var body: some View {
         ZStack {
@@ -22,9 +23,11 @@ struct FloatingOverlay: View {
             }
             
             if viewModel.isPresenting {
-                FloatingView(viewModel: viewModel)
-                    .transition(.identity)
-                    .zIndex(1)
+                FloatingView(viewModel: viewModel) {
+                    content()
+                }
+                .transition(.identity)
+                .zIndex(1)
             }
         }
         .ignoresSafeArea()
