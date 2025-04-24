@@ -3,7 +3,6 @@
 //  FloatingView
 //
 //  Created by Matheus Gois on 23/04/25.
-//  Copyright © 2025 DoorDash. All rights reserved.
 //
 
 import UIKit
